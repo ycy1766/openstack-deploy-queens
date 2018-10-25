@@ -1,0 +1,31 @@
+---
+- name: test yml
+  hosts: localhost
+  tasks: 
+    #- name: replace
+    #  replace:
+    #    path: /home/openstack-deploy-6.0/deployment/kolla-ansible/ansible/roles/glance/templates/glance-api.conf.j2_org
+    #    #regexp: '(\s+)old\.host\.name(\s+.*)?$'
+    #    regexp: 'enable_ceph \| bool and '
+    #    replace: ''
+    #   # after: 'Start after line.*'
+    #   # before: 'Start before line.*'
+    #    backup: yes
+
+    - lineinfile:
+        path: "/usr/share/kolla-ansible/ansible/roles/haproxy/templates/haproxy.cfg.j2"
+        insertbefore: "{% for host in groups['horizon'] %}"
+        line: '   http-request del-header X-Forwarded-Proto if { ssl_fc }'
+    
+    #- name: modify designate.conf.j2 file
+    #  shell: "sed -i '/^zone_id/ s/$/\ {{ zone_id }}/g' {{ current_working_directory }}/deployment/kolla-ansible/ansible/roles/designate/templates/designate.conf.j2"
+ 
+    #- name: modify designate file
+    #  shell: "sed -i '/^designate_producer_image_full/ s/central/producer/g' /home/openstack-deploy-6.0/deployment/kolla-ansible/ansible/roles/designate/defaults/main.yml"
+     # replace:
+     #   path: "/home/openstack-deploy-6.0/deployment/kolla-ansible/ansible/roles/designate/defaults/main.yml"
+     #   regexp: "^designate_producer_image_full.*$"
+     #   replace: 'designate_producer_image_full: "{{ designate_producer_image }}:{{ designate_producer_tag }}"'
+     #   #after: '^designate_producer_tag'
+     #   #before: '^designate_api_image:' 
+     #   backup: yes

@@ -1,0 +1,6 @@
+---
+- name: update pip.conf from template
+  template:
+    src: pip.conf.j2
+    dest: /etc/pip.conf
+

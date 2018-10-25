@@ -1,0 +1,6 @@
+---
+- name: login to private registry
+  docker_login:
+    registry: 'https://{{ osc_docker_registry_server }}'
+    username: '{{ osc_docker_registry_username }}'
+    password: '{{ osc_docker_registry_password }}'

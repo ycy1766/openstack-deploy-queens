@@ -1,0 +1,49 @@
+# Deploy host
+[deploy]
+cloud-deploy ansible_host=10.20.1.3
+
+[deploy:vars]
+ansible_user=centos
+ansible_become=true
+ansible_connection=local
+
+# CEPH hosts
+[ceph_mons]
+ceph-mon01 ansible_host=10.20.1.31
+ceph-mon02 ansible_host=10.20.1.32
+ceph-mon03 ansible_host=10.20.1.33
+
+[ceph_osds]
+ceph-osd01 ansible_host=10.20.1.31
+ceph-osd02 ansible_host=10.20.1.32
+ceph-osd03 ansible_host=10.20.1.33
+
+[ceph:children]
+ceph_mons
+ceph_osds
+
+[all:vars]
+ansible_user=centos
+ansible_become=true
+
+# Kolla hosts
+[controller]
+controller01 ansible_host=10.20.1.11
+controller02 ansible_host=10.20.1.12
+controller03 ansible_host=10.20.1.13
+
+[compute]
+compute01 ansible_host=10.20.1.21
+compute02 ansible_host=10.20.1.22
+#compute03 ansible_host=10.20.1.23
+
+[monitor]
+
+[storage:children]
+controller
+
+[kolla:children]
+controller
+compute
+monitor
+storage

@@ -1,0 +1,4 @@
+- name: yum install requierment packages 
+  yum:
+    name: python-devel,libffi-devel,gcc,openssl-devel,libselinux-python
+    state: latest

@@ -1,0 +1,4 @@
+- name: yum install python2-pip
+  yum:
+    name: python2-pip
+    state: latest

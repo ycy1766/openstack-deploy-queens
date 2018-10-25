@@ -1,0 +1,8 @@
+kolla/centos-binary-designate-api           
+kolla/centos-binary-designate-backend-bind9 
+kolla/centos-binary-designate-base          
+kolla/centos-binary-designate-central       
+kolla/centos-binary-designate-mdns          
+kolla/centos-binary-designate-sink          
+kolla/centos-binary-designate-worker        
+kolla/centos-binary-designate-producer

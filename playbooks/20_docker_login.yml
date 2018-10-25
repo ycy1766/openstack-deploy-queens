@@ -1,0 +1,9 @@
+---
+- name: login to private registry
+  hosts: kolla
+  tasks: 
+    - docker_login: 
+        registry: 'http://cloud-deploy:5000'
+        username: '{{ osc_docker_registry_username }}'
+        password: '{{ osc_docker_registry_password }}'
+      when: private_repository

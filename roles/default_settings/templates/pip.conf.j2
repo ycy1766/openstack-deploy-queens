@@ -1,0 +1,9 @@
+[global]
+trusted-host = {{ osc_py_repository_server }}
+index-url = {{ osc_py_repository_url }}/simple
+
+[distutils]
+index-servers = nexus
+
+[nexus]
+repository = {{ osc_py_repository_url }}

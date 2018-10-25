@@ -1,0 +1,5 @@
+- name: pip upgrade 9.0.3
+  pip:
+    name: pip
+    state: present
+    version: 9.0.3

@@ -1,0 +1,5 @@
+---
+# tasks file for docker
+- include: yum_clean_all.yml
+- include: pre_required_packages.yml
+- include: docker_install.yml

@@ -1,0 +1,46 @@
+---
+- name: create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /etc/kolla/config/mariadb
+    - /etc/kolla/config/keystone
+    - /etc/kolla/config/cinder
+    - /etc/kolla/config/glance
+    - /etc/kolla/config/nova
+    - /etc/kolla/config/neutron
+
+
+# mariadb
+
+
+# keystone
+
+
+# Cinder
+
+
+# Glance
+- name: custom config for glance-api.conf
+  copy:
+    src: glance-api.conf
+    dest: /etc/kolla/config/glance/
+
+
+# Nova
+- name: custom config for nova-compute.conf (ram_allocation_ratio)
+  copy:
+    src: nova-compute.conf
+    dest: /etc/kolla/config/nova/
+
+- name: Options for qemu.conf
+  lineinfile:
+    line: "{{ item }}"
+    dest: /usr/share/kolla-ansible/ansible/roles/nova/templates/qemu.conf.j2
+  with_items:
+    - "max_files = 20480"
+    - "max_processes = 20480"
+
+# Neutron
+

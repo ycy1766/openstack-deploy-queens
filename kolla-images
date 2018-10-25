@@ -1,0 +1,37 @@
+#!/bin/bash 
+
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-gnocchi-api:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-gnocchi-base:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-gnocchi-metricd:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-gnocchi-statsd:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-heat-api:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-heat-api-cfn:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-heat-engine:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-ceilometer-api:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-ceilometer-central:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-ceilometer-compute:6.0.0
+#docker pull repo.opensourcelab.co.kr:5043/kolla/centos-binary-ceilometer-notification:6.0.0
+
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-gnocchi-api:6.0.0			cloud-deploy:5000/kolla/centos-binary-gnocchi-api:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-gnocchi-base:6.0.0                 cloud-deploy:5000/kolla/centos-binary-gnocchi-base:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-gnocchi-metricd:6.0.0              cloud-deploy:5000/kolla/centos-binary-gnocchi-metricd:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-gnocchi-statsd:6.0.0               cloud-deploy:5000/kolla/centos-binary-gnocchi-statsd:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-heat-api:6.0.0                     cloud-deploy:5000/kolla/centos-binary-heat-api:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-heat-api-cfn:6.0.0                 cloud-deploy:5000/kolla/centos-binary-heat-api-cfn:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-heat-engine:6.0.0                  cloud-deploy:5000/kolla/centos-binary-heat-engine:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-ceilometer-api:6.0.0               cloud-deploy:5000/kolla/centos-binary-ceilometer-api:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-ceilometer-central:6.0.0           cloud-deploy:5000/kolla/centos-binary-ceilometer-central:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-ceilometer-compute:6.0.0           cloud-deploy:5000/kolla/centos-binary-ceilometer-compute:6.0.0
+docker tag repo.opensourcelab.co.kr:5043/kolla/centos-binary-ceilometer-notification:6.0.0      cloud-deploy:5000/kolla/centos-binary-ceilometer-notification:6.0.0
+
+docker push cloud-deploy:5000/kolla/centos-binary-gnocchi-api:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-gnocchi-base:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-gnocchi-metricd:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-gnocchi-statsd:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-heat-api:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-heat-api-cfn:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-heat-engine:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-ceilometer-api:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-ceilometer-central:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-ceilometer-compute:6.0.0
+docker push cloud-deploy:5000/kolla/centos-binary-ceilometer-notification:6.0.0

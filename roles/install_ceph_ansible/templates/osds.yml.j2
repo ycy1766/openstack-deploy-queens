@@ -1,0 +1,28 @@
+---
+dummy:
+
+####################
+# OSD CRUSH LOCATION
+####################
+crush_location: false
+
+osd_crush_location: {% raw %}"\"root={{ ceph_crush_root }} rack={{ ceph_crush_rack }} host={{ ansible_hostname }}\""{% endraw %}
+
+##############
+# CEPH OPTIONS
+##############
+
+devices:
+{% for device in osd_devices %}
+  - {{ device }}
+{% endfor %}
+
+osd_auto_discovery: false
+
+#osd_scenario: collocated
+osd_scenario: non-collocated
+
+dedicated_devices:
+{% for device in raw_journal_devices %}
+  - {{ device }}
+{% endfor %}

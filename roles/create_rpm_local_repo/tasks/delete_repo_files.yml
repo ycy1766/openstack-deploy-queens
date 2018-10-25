@@ -1,0 +1,12 @@
+---
+- name: remove pre-configured repo files
+  copy: 
+    remote_src: true
+    src: /etc/yum.repos.d
+    dest: /etc/yum.repos.d_old
+  ignore_errors: true
+
+- name: remove pre-configured repo files
+  file:
+    path: /etc/yum.repos.d
+    state: absent

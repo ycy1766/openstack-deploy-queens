@@ -1,0 +1,125 @@
+---
+# custom settings
+- name: modify cinder.conf.j2
+  replace:
+    path: "/usr/share/kolla-ansible/ansible/roles/cinder/templates/cinder.conf.j2"
+    regexp: 'enable_ceph \| bool and '
+    replace: ''
+    backup: yes
+
+- name: modify glance-api.conf.j2
+  replace:
+    path: "/usr/share/kolla-ansible/ansible/roles/glance/templates/glance-api.conf.j2"
+    regexp: 'enable_ceph \| bool and '
+    replace: ''
+    backup: yes
+
+- name: modify nova.conf.j2
+  replace:
+    path: "/usr/share/kolla-ansible/ansible/roles/nova/templates/nova.conf.j2"
+    regexp: 'enable_ceph \| bool and '
+    replace: ''
+    backup: yes
+
+- name: modify cinder variable 
+  replace:
+    path: "/usr/share/kolla-ansible/ansible/roles/cinder/defaults/main.yml"
+    regexp: 'enable_ceph \| bool and '
+    replace: ''
+    backup: yes
+
+- name: modify glance variable 
+  replace:
+    path: "/usr/share/kolla-ansible/ansible/roles/glance/defaults/main.yml"
+    regexp: 'enable_ceph \| bool and '
+    replace: ''
+    backup: yes
+
+- name: modify designate file
+  shell: "sed -i '/^designate_producer_image_full/ s/central/producer/g' /usr/share/kolla-ansible/ansible/roles/designate/defaults/main.yml"
+
+- name: modify designate.conf.j2 file
+  shell: "sed -i '/^zone_id/ s/$/\ {{ zone_id }}/g' /usr/share/kolla-ansible/ansible/roles/designate/templates/designate.conf.j2"
+
+- name: copy mariadb_recovery to modify 
+  copy:
+    src: recover_cluster.yml
+    dest: /usr/share/kolla-ansible/ansible/roles/mariadb/tasks/recover_cluster.yml
+
+- name: copy haproxy.cfg.j2
+  copy:
+    src: haproxy.cfg.j2
+    dest: /usr/share/kolla-ansible/ansible/roles/haproxy/templates/haproxy.cfg.j2
+
+- name: copy neutron_lbaas.conf.j2
+  copy:
+    src: neutron_lbaas.conf.j2
+    dest: /usr/share/kolla-ansible/ansible/roles/neutron/templates/neutron_lbaas.conf.j2
+
+- name: copy named.conf.j2
+  copy:
+    src: named.conf.j2
+    dest: /usr/share/kolla-ansible/ansible/roles/designate/templates/named.conf.j2
+
+- name: copy neutron.conf.j2
+  copy:
+    src: neutron.conf.j2
+    dest: /usr/share/kolla-ansible/ansible/roles/neutron/templates/neutron.conf.j2
+
+- name: copy keepalived.conf.j2
+  copy:
+    src: keepalived.conf.j2
+    dest: /usr/share/kolla-ansible/ansible/roles/haproxy/templates/keepalived.conf.j2
+
+- name: overwrite post-deploy.yml cause patch
+  copy:
+    src: post-deploy.yml
+    dest: /usr/share/kolla-ansible/ansible/post-deploy.yml
+
+
+# kolla settings - create configuration files
+- name: create /etc/kolla
+  file:
+    path: /etc/kolla
+    state: directory
+    mode: 0755
+
+- name: copy old passwords file
+  template:
+    src: passwords.yml.old.j2
+    dest: /etc/kolla/passwords.yml.old
+
+- name: check whether passwords.yml.new exists
+  stat: path=/etc/kolla/passwords.yml.new
+  register: password_yml_new_exists
+
+- name: copy new passwords.yml file
+  copy:
+    src: passwords.yml
+    dest: /etc/kolla/passwords.yml.new
+  when: password_yml_new_exists.stat.exists != True
+
+- name: generate /etc/kolla/passwords.yml.new file
+  shell: kolla-genpwd -p /etc/kolla/passwords.yml.new
+  when: password_yml_new_exists.stat.exists != True
+
+- name: generate /etc/kolla/passwords.yml file
+  shell: kolla-mergepwd --old /etc/kolla/passwords.yml.old --new /etc/kolla/passwords.yml.new --final /etc/kolla/passwords.yml
+
+- name: create kolla globals.yml file
+  template:
+    src: globals.yml.j2
+    dest: /etc/kolla/globals.yml
+
+- name: create kolla multinode.j2 file
+  template:
+    src: multinode.j2
+    dest: /etc/kolla/multinode
+
+- name: delete passwords.yml.old and passwords.yml.new file
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/kolla/passwords.yml.old
+    - /etc/kolla/passwords.yml.new
